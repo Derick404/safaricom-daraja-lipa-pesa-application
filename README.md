@@ -185,4 +185,4 @@ curl -X POST http://localhost:3000/api/mpesa/send \
 
 ##  Application ui
 
----<img width="767" height="443" alt="lipapesa" src="https://github.com/user-attachments/assets/f6461a31-9a86-400a-977f-1d5aa8bf5b92" />
+<img width="767" height="443" alt="lipapesa" src="https://github.com/user-attachments/assets/f6461a31-9a86-400a-977f-1d5aa8bf5b92" />
