@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://kit.fontawesome.com/f56b664cd0.js" crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lipa pesa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --green:     #3d9e60;
+    --green-dim: #2e7a49;
+    --green-glow:#3d9e6012;
+    --dark:      #0e0e0e;
+    --card:      #161616;
+    --card2:     #1a1a1a;
+    --border:    #252525;
+    --border2:   #2a2a2a;
+    --muted:     #555555;
+    --text:      #d0d0d0;
+    --text2:     #737373;
+    --danger:    #e05555;
+    --warn:      #c9913a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+
+
+
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* Header  */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: #1e2e22;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    
+  }
+
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #fff;
+  }
+
+  .logo-text span { color: var(--green); }
+
+  .env-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    color: var(--warn);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 6px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+
+  .tab {
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: var(--text2);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tab:hover { color: var(--text); background: var(--card2); }
+
+  .tab.active {
+    background: var(--green);
+    color: #000;
+    font-weight: 600;
+    
+  }
+
+  .tab-icon { font-size: 16px; }
+
+  /*  Content panels  */
+  .panel { display: none; animation: fadeUp 0.3s ease; }
+  .panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Card*/
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-sub {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* Form fields */
+  .field { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  input, select {
+    width: 100%;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder { color: var(--muted); }
+
+  input:focus, select:focus {
+    border-color: var(--green);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6b4e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  select option { background: var(--card); }
+
+  /* Button */
+  .btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--green);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:hover {
+    background: #00e060;
+    transform: translateY(-1px);
+  }
+
+  .btn:active { transform: translateY(0); }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn .spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #00000033;
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto;
+  }
+
+  .btn.loading .btn-text { display: none; }
+  .btn.loading .spinner  { display: block; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Response box*/
+  .response-card { grid-column: 1 / -1; }
+
+  .res-box {
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text2);
+    min-height: 120px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    transition: border-color 0.3s;
+  }
+
+  .res-box.success { border-color: var(--green); color: var(--green); }
+  .res-box.error   { border-color: var(--danger); color: var(--danger); }
+
+  .res-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .res-status {
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .res-status.success { background: #00c85320; color: var(--green); }
+  .res-status.error   { background: #ff4f4f20; color: var(--danger); }
+  .res-status.idle    { background: var(--card2); color: var(--muted); }
+
+  /* Info row  */
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .info-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Token test */
+  .token-test {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-sm {
+    padding: 9px 18px;
+    background: var(--card2);
+    color: var(--text);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-sm:hover { border-color: var(--green); color: var(--green); }
+
+  .api-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 9px 14px;
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* Divider*/
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  /* Amount hint */
+  .quick-amounts {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .qa {
+    padding: 5px 12px;
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .qa:hover { border-color: var(--green); color: var(--green); }
+
+  /* Responsive */
+  @media (max-width: 680px) {
+    .panel.active { grid-template-columns: 1fr; }
+    .response-card { grid-column: 1; }
+    header { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .tab { min-width: 110px; font-size: 13px; padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon"> </div>
+      <div class="logo-text">Lipa<span>pesa</span></div>
+    </div>
+    <div class="env-badge" id="env-badge"> . sandbox</div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('send')">
+      <span class="tab-icon"> </span> Send Money
+    </button>
+    <button class="tab" onclick="switchTab('till')">
+      <span class="tab-icon">   </span> Till Number
+    </button>
+    <button class="tab" onclick="switchTab('pochi')">
+      <span class="tab-icon">     </span> Pochi la Biashara
+    </button>
+    <button class="tab" onclick="switchTab('query')">
+      <span class="tab-icon">   </span> Check Status
+    </button>
+  </div>
+
+  <!-- SEND MONEY  -->
+  <div class="panel active" id="panel-send">
+    <div class="card">
+      <div class="card-title">  Send Money (B2C)</div>
+      <div class="card-sub">Send money directly to any M-Pesa number.</div>
+
+      <div class="info-row">
+        <span class="info-icon">ℹ  </span>
+        <span>In sandbox, use <strong>254708374149</strong> as the recipient phone. Minimum amount is KES 10.</span>
+      </div>
+
+      <div class="field">
+        <label>Recipient Phone</label>
+        <input type="tel" id="send-phone" placeholder="07XXXXXXXX or 254XXXXXXXXX"/>
+      </div>
+      <div class="field">
+        <label>Amount (KES)</label>
+        <input type="number" id="send-amount" placeholder="e.g. 500" min="10"/>
+        <div class="quick-amounts">
+          <span class="qa" onclick="setAmount('send-amount',10)">10</span>
+          <span class="qa" onclick="setAmount('send-amount',50)">50</span>
+          <span class="qa" onclick="setAmount('send-amount',100)">100</span>
+          <span class="qa" onclick="setAmount('send-amount',500)">500</span>
+          <span class="qa" onclick="setAmount('send-amount',1000)">1,000</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Payment Type</label>
+        <select id="send-command">
+          <option value="BusinessPayment">Business Payment (General)</option>
+          <option value="SalaryPayment">Salary Payment</option>
+          <option value="PromotionPayment">Promotion Payment</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Remarks (optional)</label>
+        <input type="text" id="send-remarks" placeholder="e.g. Staff reimbursement"/>
+      </div>
+      <button class="btn" id="btn-send" onclick="sendMoney()">
+        <span class="btn-text">Send Money</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"> How it works</div>
+      <div class="card-sub">B2C (Business to Customer) sends money from your M-Pesa business account directly to the recipient's phone wallet.</div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Sandbox behaviour</strong><br/>
+        No real money moves. Safaricom simulates the transaction and sends a fake result to your callback URL if ngrok is running.
+      </div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Payment types</strong><br/>
+        <strong style="color:var(--green)">Business Payment</strong> — general send<br/>
+        <strong style="color:var(--green)">Salary Payment</strong> — payroll disbursements<br/>
+        <strong style="color:var(--green)">Promotion Payment</strong> — offers, cashbacks
+      </div>
+    </div>
+
+    <div class="card response-card">
+      <div class="res-header">
+        <div class="card-title" style="margin:0">Response</div>
+        <span class="res-status idle" id="status-send">IDLE</span>
+      </div>
+      <div class="res-box" id="res-send">Waiting for request...</div>
+    </div>
+  </div>
+
+  <!-- TILL NUMBER -->
+  <div class="panel" id="panel-till">
+    <div class="card">
+      <div class="card-title"> Pay via Till Number</div>
+      <div class="card-sub">Triggers an STK Push on the customer's phone to pay a till (Buy Goods).</div>
+
+      <div class="info-row">
+        <span class="info-icon">ℹ </span>
+        <span>In sandbox, use till number <strong>174379</strong>. The STK Push goes to the customer's phone, not yours.</span>
+      </div>
+
+      <div class="field">
+        <label>Customer Phone</label>
+        <input type="tel" id="till-phone" placeholder="07XXXXXXXX or 254XXXXXXXXX"/>
+      </div>
+      <div class="field">
+        <label>Amount (KES)</label>
+        <input type="number" id="till-amount" placeholder="e.g. 100" min="1"/>
+        <div class="quick-amounts">
+          <span class="qa" onclick="setAmount('till-amount',1)">1</span>
+          <span class="qa" onclick="setAmount('till-amount',50)">50</span>
+          <span class="qa" onclick="setAmount('till-amount',100)">100</span>
+          <span class="qa" onclick="setAmount('till-amount',500)">500</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Till Number</label>
+        <input type="text" id="till-number" placeholder="e.g. 174379"/>
+      </div>
+      <div class="field">
+        <label>Account Reference (optional)</label>
+        <input type="text" id="till-ref" placeholder="e.g. Order001"/>
+      </div>
+      <div class="field">
+        <label>Description (optional)</label>
+        <input type="text" id="till-desc" placeholder="e.g. Payment for goods"/>
+      </div>
+      <button class="btn" id="btn-till" onclick="payTill()">
+        <span class="btn-text">Send STK Push</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"> How it works</div>
+      <div class="card-sub">An STK Push (pop-up) appears on the customer's phone asking them to enter their M-Pesa PIN. Once confirmed, money goes to the till.</div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Till vs Paybill</strong><br/>
+        Till numbers use <strong style="color:var(--green)">Buy Goods</strong> — the customer pays directly without entering an account number. Best for shops, kiosks, and point-of-sale.
+      </div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Sandbox tip</strong><br/>
+        The STK Push won't actually appear on a real phone in sandbox. Use <strong style="color:var(--green)">254708374149</strong> as the test customer phone.
+      </div>
+    </div>
+
+    <div class="card response-card">
+      <div class="res-header">
+        <div class="card-title" style="margin:0">Response</div>
+        <span class="res-status idle" id="status-till">IDLE</span>
+      </div>
+      <div class="res-box" id="res-till">Waiting for request...</div>
+    </div>
+  </div>
+
+  <!-- POCHI -->
+  <div class="panel" id="panel-pochi">
+    <div class="card">
+      <div class="card-title"> Pochi la Biashara</div>
+      <div class="card-sub">Sends an STK Push to pay a Pochi la Biashara number.</div>
+
+      <div class="info-row">
+        <span class="info-icon">ℹ </span>
+        <span>Pochi la Biashara is for small business owners who use their phone number as their business number.</span>
+      </div>
+
+      <div class="field">
+        <label>Customer Phone (who pays)</label>
+        <input type="tel" id="pochi-phone" placeholder="07XXXXXXXX or 254XXXXXXXXX"/>
+      </div>
+      <div class="field">
+        <label>Amount (KES)</label>
+        <input type="number" id="pochi-amount" placeholder="e.g. 200" min="1"/>
+        <div class="quick-amounts">
+          <span class="qa" onclick="setAmount('pochi-amount',1)">1</span>
+          <span class="qa" onclick="setAmount('pochi-amount',50)">50</span>
+          <span class="qa" onclick="setAmount('pochi-amount',100)">100</span>
+          <span class="qa" onclick="setAmount('pochi-amount',500)">500</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Pochi Number (who receives)</label>
+        <input type="tel" id="pochi-number" placeholder="07XXXXXXXX of the business"/>
+      </div>
+      <div class="field">
+        <label>Account Reference (optional)</label>
+        <input type="text" id="pochi-ref" placeholder="e.g. Invoice 001"/>
+      </div>
+      <button class="btn" id="btn-pochi" onclick="payPochi()">
+        <span class="btn-text">Send STK Push</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"> How it works</div>
+      <div class="card-sub">Pochi la Biashara lets small business owners receive money via their personal phone number — no till or paybill needed.</div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Two numbers involved</strong><br/>
+        <strong style="color:var(--green)">Customer phone</strong> — receives the STK Push and pays<br/>
+        <strong style="color:var(--green)">Pochi number</strong> — the business owner's phone that receives the money
+      </div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Registration</strong><br/>
+        The recipient must have Pochi la Biashara activated. Dial <strong style="color:var(--green)">*334#</strong> on Safaricom to activate it.
+      </div>
+    </div>
+
+    <div class="card response-card">
+      <div class="res-header">
+        <div class="card-title" style="margin:0">Response</div>
+        <span class="res-status idle" id="status-pochi">IDLE</span>
+      </div>
+      <div class="res-box" id="res-pochi">Waiting for request...</div>
+    </div>
+  </div>
+
+  <!-- QUERY -->
+  <div class="panel" id="panel-query">
+    <div class="card">
+      <div class="card-title"> Check Transaction Status</div>
+      <div class="card-sub">Query the status of any M-Pesa transaction using its ID.</div>
+
+      <div class="info-row">
+        <span class="info-icon">ℹ </span>
+        <span>The transaction ID comes from an M-Pesa confirmation SMS — it looks like <strong>OEI2AK4Q16</strong>. Results are sent to your callback URL.</span>
+      </div>
+
+      <div class="field">
+        <label>Transaction ID</label>
+        <input type="text" id="query-id" placeholder="e.g. OEI2AK4Q16" style="font-family:'DM Mono',monospace; letter-spacing:1px;"/>
+      </div>
+      <div class="field">
+        <label>Remarks (optional)</label>
+        <input type="text" id="query-remarks" placeholder="e.g. Verify customer payment"/>
+      </div>
+      <button class="btn" id="btn-query" onclick="checkStatus()">
+        <span class="btn-text">Check Status</span>
+        <div class="spinner"></div>
+      </button>
+
+      <hr class="divider"/>
+
+      <div class="card-title" style="font-size:14px; margin-bottom:10px;"> Test Credentials</div>
+      <div class="token-test">
+        <input class="api-url" id="api-url-input" value="http://localhost:3000" placeholder="http://localhost:3000"/>
+        <button class="btn-sm" onclick="testToken()">Test Token</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"> How it works</div>
+      <div class="card-sub">The query is sent to Safaricom who then POSTs the result asynchronously to your callback URL.</div>
+      <hr class="divider"/>
+      <div class="card-sub">
+        <strong style="color:var(--text)">Where to find the Transaction ID</strong><br/>
+        It's in the M-Pesa confirmation SMS the customer received. Also returned in STK Push callback as <strong style="color:var(--green)">MpesaReceiptNumber</strong>.
+      </div>
+      <hr class="divider"/>
+      <div class="card-title" style="font-size:14px; margin-bottom:10px;"> Quick STK Status Check</div>
+      <div class="card-sub" style="margin-bottom:14px;">Check if an STK Push was completed using the CheckoutRequestID from the STK Push response.</div>
+      <div class="field" style="margin-bottom:12px;">
+        <label>Checkout Request ID</label>
+        <input type="text" id="stk-checkout-id" placeholder="ws_CO_DMZ_..." style="font-family:'DM Mono',monospace;font-size:12px;"/>
+      </div>
+      <button class="btn-sm" style="width:100%;text-align:center;padding:12px;" onclick="checkStkStatus()">Check STK Status</button>
+    </div>
+
+    <div class="card response-card">
+      <div class="res-header">
+        <div class="card-title" style="margin:0">Response</div>
+        <span class="res-status idle" id="status-query">IDLE</span>
+      </div>
+      <div class="res-box" id="res-query">Waiting for request...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Config
+  const BASE = () => {
+    const v = document.getElementById('api-url-input')?.value || 'http://localhost:3000';
+    return v.replace(/\/$/, '');
+  };
+
+  // Tab switching
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('panel-' + name).classList.add('active');
+  }
+
+  // Quick amounts
+  function setAmount(id, val) {
+    document.getElementById(id).value = val;
+  }
+
+  // Response helpers 
+  function showRes(id, statusId, data, ok) {
+    const box = document.getElementById(id);
+    const badge = document.getElementById(statusId);
+    box.textContent = JSON.stringify(data, null, 2);
+    box.className = 'res-box ' + (ok ? 'success' : 'error');
+    badge.textContent = ok ? '✓ SUCCESS' : '✗ ERROR';
+    badge.className = 'res-status ' + (ok ? 'success' : 'error');
+  }
+
+  function setLoading(btnId, loading) {
+    const btn = document.getElementById(btnId);
+    btn.disabled = loading;
+    btn.classList.toggle('loading', loading);
+  }
+
+  async function apiFetch(path, body) {
+    const res = await fetch(BASE() + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return res.json();
+  }
+
+  // Send Money 
+  async function sendMoney() {
+    const phone   = document.getElementById('send-phone').value.trim();
+    const amount  = document.getElementById('send-amount').value;
+    const command = document.getElementById('send-command').value;
+    const remarks = document.getElementById('send-remarks').value.trim();
+
+    if (!phone || !amount) return alert('Phone and amount are required.');
+
+    setLoading('btn-send', true);
+    try {
+      const data = await apiFetch('/api/mpesa/send', { phone, amount: Number(amount), commandID: command, remarks });
+      showRes('res-send', 'status-send', data, data.success);
+    } catch (e) {
+      showRes('res-send', 'status-send', { error: e.message }, false);
+    }
+    setLoading('btn-send', false);
+  }
+
+  //Till Number
+  async function payTill() {
+    const phone      = document.getElementById('till-phone').value.trim();
+    const amount     = document.getElementById('till-amount').value;
+    const tillNumber = document.getElementById('till-number').value.trim();
+    const accountRef = document.getElementById('till-ref').value.trim();
+    const description= document.getElementById('till-desc').value.trim();
+
+    if (!phone || !amount || !tillNumber) return alert('Phone, amount and till number are required.');
+
+    setLoading('btn-till', true);
+    try {
+      const data = await apiFetch('/api/mpesa/till', { phone, amount: Number(amount), tillNumber, accountRef, description });
+      showRes('res-till', 'status-till', data, data.success);
+    } catch (e) {
+      showRes('res-till', 'status-till', { error: e.message }, false);
+    }
+    setLoading('btn-till', false);
+  }
+
+  //Pochi
+  async function payPochi() {
+    const phone       = document.getElementById('pochi-phone').value.trim();
+    const amount      = document.getElementById('pochi-amount').value;
+    const pochiNumber = document.getElementById('pochi-number').value.trim();
+    const accountRef  = document.getElementById('pochi-ref').value.trim();
+
+    if (!phone || !amount || !pochiNumber) return alert('Phone, amount and Pochi number are required.');
+
+    setLoading('btn-pochi', true);
+    try {
+      const data = await apiFetch('/api/mpesa/pochi', { phone, amount: Number(amount), pochiNumber, accountRef });
+      showRes('res-pochi', 'status-pochi', data, data.success);
+    } catch (e) {
+      showRes('res-pochi', 'status-pochi', { error: e.message }, false);
+    }
+    setLoading('btn-pochi', false);
+  }
+
+  // Transaction Query
+  async function checkStatus() {
+    const transactionID = document.getElementById('query-id').value.trim();
+    const remarks       = document.getElementById('query-remarks').value.trim();
+
+    if (!transactionID) return alert('Transaction ID is required.');
+
+    setLoading('btn-query', true);
+    try {
+      const data = await apiFetch('/api/mpesa/query', { transactionID, remarks });
+      showRes('res-query', 'status-query', data, data.success);
+    } catch (e) {
+      showRes('res-query', 'status-query', { error: e.message }, false);
+    }
+    setLoading('btn-query', false);
+  }
+
+  // STK Status Check 
+  async function checkStkStatus() {
+    const checkoutRequestID = document.getElementById('stk-checkout-id').value.trim();
+    if (!checkoutRequestID) return alert('Checkout Request ID is required.');
+    try {
+      const data = await apiFetch('/api/mpesa/stk-query', { checkoutRequestID });
+      showRes('res-query', 'status-query', data, data.success);
+    } catch (e) {
+      showRes('res-query', 'status-query', { error: e.message }, false);
+    }
+  }
+
+  // Test Token
+  async function testToken() {
+    const box   = document.getElementById('res-query');
+    const badge = document.getElementById('status-query');
+    box.textContent = 'Testing credentials...';
+    box.className = 'res-box';
+    try {
+      const res  = await fetch(BASE() + '/api/mpesa/token');
+      const data = await res.json();
+      showRes('res-query', 'status-query', data, data.success);
+    } catch (e) {
+      showRes('res-query', 'status-query', { error: 'Could not reach server at ' + BASE() + '. Is it running?' }, false);
+    }
+  }
+
+  //  Enter key support
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const panel = document.querySelector('.panel.active');
+    if (!panel) return;
+    const id = panel.id;
+    if (id === 'panel-send')  sendMoney();
+    if (id === 'panel-till')  payTill();
+    if (id === 'panel-pochi') payPochi();
+    if (id === 'panel-query') checkStatus();
+  });
+</script>
+</body>
+</html>
