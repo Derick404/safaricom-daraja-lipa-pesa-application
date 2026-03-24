@@ -172,7 +172,7 @@ curl -X POST http://localhost:3000/api/mpesa/send \
   -d '{"phone":"254708374149","amount":10,"remarks":"Test send"}'
 ```
 
----
+
 
 ##  Going to Production
 
@@ -181,3 +181,8 @@ curl -X POST http://localhost:3000/api/mpesa/send \
 3. Update `BUSINESS_SHORT_CODE` and `B2C_SHORT_CODE` with real values
 4. Deploy to a server with a real HTTPS domain (no ngrok needed)
 5. For B2C, download the **Production certificate** from Daraja and use it to encrypt `INITIATOR_PASSWORD`
+
+
+##  Application ui
+
+---<img width="767" height="443" alt="lipapesa" src="https://github.com/user-attachments/assets/f6461a31-9a86-400a-977f-1d5aa8bf5b92" />
